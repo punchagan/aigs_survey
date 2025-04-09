@@ -721,7 +721,7 @@
 
       fetch(SCRIPT_URL, {
           method: 'POST',
-          // mode: 'no-cors', // Usually NOT needed for Apps Script Web Apps unless you have specific CORS issues
+          mode: 'no-cors', // Usually NOT needed for Apps Script Web Apps unless you have specific CORS issues
           cache: 'no-cache',
           headers: {
               'Content-Type': 'application/json', // Send as JSON
