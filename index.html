@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Review AIGS Survey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px; /* Added margin between containers */
+    }
+    h1, h2 {
+      color: #0055a4;
+    }
+    button {
+      background-color: #0055a4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #003b73;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    textarea {
+        resize: vertical; /* Allow vertical resize */
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .radio-option {
+      margin: 8px 0;
+      display: block; /* Ensure labels are block for better spacing */
+    }
+    .radio-option input[type="radio"] {
+        margin-right: 8px; /* Space between radio and label */
+    }
+    .hotel-info {
+      background-color: #f0f7ff;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 15px 0;
+      border: 1px solid #cce0ff; /* Added subtle border */
+    }
+    .summary-box {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 15px 0; /* Increased margin */
+      border-radius: 4px;
+    }
+    .hidden {
+      display: none;
+    }
+    .progress-bar {
+      background-color: #e0e0e0;
+      height: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      overflow: hidden; /* Ensure progress stays within bounds */
+    }
+    .progress {
+      background-color: #0055a4;
+      height: 10px;
+      border-radius: 5px 0 0 5px; /* Rounded left corners */
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .summary-box p {
+        white-space: pre-wrap; /* Preserves whitespace and wraps lines */
+        word-wrap: break-word; /* Ensures long words don't overflow */
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div id="welcome-section" class="container">
+    <h1>Welcome</h1>
+    <p>Thank you for participating in this research survey. You will be asked to evaluate different styles of AI-generated hotel review summaries to help us understand which summaries travelers find most helpful when making booking decisions. The survey will take approximately 5 minutes to complete.</p>
+    <p>The survey will start with a few questions about your travel habits and preferences, followed by tasks where you'll review and compare different AI-generated summary styles.</p>
+    <p>Your responses will remain confidential and will be used solely for academic research purposes. Upon completing the survey, you will receive a payment of $0.50.</p>
+
+    <div class="question">
+      <label for="prolific-id">First, what is your prolific ID?</label>
+      <input type="text" id="prolific-id" required>
+    </div>
+
+    <button onclick="showConsent()">Next</button>
+  </div>
+
+  <div id="consent-section" class="container hidden">
+    <h1>Consent Form</h1>
+    <p><b>Q0 Information</b><br />
+        The following is a short summary of this study to help you decide whether to be a part of this study.
+        More detailed information is listed later in this form.</p>
+    <p><b>Why am I being invited to take part in a screening for this research study?</b><br />
+        We invite you to take part in this study screening because you are over 18 years old and reside in the United States.</p>
+    <p><b>What should I know about a research study?</b><br />
+        Someone will explain this research study to you. <br />
+        Your participation is completely voluntary. <br />
+        You can agree to take part and later change your mind. Your decision will not be held against you. <br />
+        Your refusal to participate will not result in any consequences or any loss of benefits that you are otherwise entitled to receive. <br />
+        You can ask all the questions you want before you decide.</p>
+    <p><b>Why is this research being done?</b><br />
+        The purpose of this study is to understand how travelers evaluate different styles of AI-generated hotel review summaries and identify which styles are most useful for booking decisions.</p>
+    <p><b>How long will the research last and what will I need to do?</b><br />
+        You will spend approximately 5 minutes answering a few question about your experience in hotel booking and reviewing and comparing different AI-generated hotel review summaries. You will be asked to evaluate these summaries based on criteria such as clarity and helpfulness.</p>
+    <p><b>Is there any way being in this study could be bad for me?</b><br />
+        We don’t believe there are any risks from participating in this research.</p>
+    <p><b>Will being in this study help me in any way?</b><br />
+        There are no direct benefits to you from participating in this study. However, your feedback may help improve hotel review summaries used on booking platforms, benefiting travelers in the future.</p>
+    <p><b>What happens if I do not want to be in this research?</b><br />
+        Participation in research is completely voluntary. You can decide to participate, not participate, or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. Your alternative to participating in this research study is to not participate.</p>
+    <p><u>Detailed Information</u><br />
+        The following is more detailed information about this study in addition to the information listed above.</p>
+    <p><b>Can I change my mind after agreeing to participate?</b><br />
+        Yes, you may withdraw from the study at any time without any negative repercussions. If you withdraw, any data collected from you will be deleted and not used for research.</p>
+    <p><b>How will my privacy be protected?</b><br />
+        Your data will be kept confidential. Only authorized researchers will have access to your data. Identifiable personal information, if collected, will be securely managed. While every effort will be made to protect your privacy, complete anonymity cannot be guaranteed.</p>
+    <p>Compensation<br />
+        You will receive a payment of $0.50 upon completing the survey.</p>
+    <p><b>Who can I contact with questions?</b><br />
+        If you have questions, concerns, or complaints, please contact the research team at aobenlzc@gmail.com. <br />
+        This research has been reviewed and approved by the Institutional Review Board (IRB). If you have additional concerns or questions about your rights as a participant, you may contact the IRB directly at HSP@utdallas.edu if</p>
+    <ul>
+        <li>Your questions, concerns, or complaints are not being answered by the research team.</li>
+        <li>You cannot reach the research team.</li>
+        <li>You want to talk to someone besides the research team.</li>
+        <li>You have questions about your rights as a research subject.</li>
+        <li>You want to get information or provide input about this research.</li>
+    </ul>
+    
+
+
+
+    <div class="question">
+      <p>Do you consent to participate in this survey?</p>
+      <div class="radio-option">
+        <input type="radio" id="consent-yes" name="consent" value="yes">
+        <label for="consent-yes">Yes, I consent</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="consent-no" name="consent" value="no">
+        <label for="consent-no">No, I do not consent</label>
+      </div>
+    </div>
+
+    <button onclick="handleConsent()">Next</button>
+  </div>
+
+  <div id="preliminary-questions" class="container hidden">
+    <h1>Hotel Review Habits</h1>
+    <p>Please answer the following questions about your hotel booking habits.</p>
+
+    <div class="question">
+      <p>1. How many reviews do you usually read for a hotel before booking?</p>
+      <div class="radio-option">
+        <input type="radio" id="reviews-1-5" name="review-count" value="1-5">
+        <label for="reviews-1-5">1-5 reviews</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="reviews-5-10" name="review-count" value="5-10">
+        <label for="reviews-5-10">5-10 reviews</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="reviews-10+" name="review-count" value="10+">
+        <label for="reviews-10+">More than 10 reviews</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="reviews-none" name="review-count" value="none">
+        <label for="reviews-none">I don't usually read reviews</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. What average rating (out of 5) do you consider as good enough for a hotel on a review platform?</p>
+      <div class="radio-option">
+        <input type="radio" id="rating-above-4.5" name="good-rating" value="above-4.5">
+        <label for="rating-above-4.5">above 4.5</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="rating-above-4.0" name="good-rating" value="above-4.0">
+        <label for="rating-above-4.0">above 4.0</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="rating-above-3.5" name="good-rating" value="above-3.5">
+        <label for="rating-above-3.5">above 3.5</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>3. Have you ever noticed AI-generated summaries for hotel reviews on review platforms?</p>
+      <div class="radio-option">
+        <input type="radio" id="ai-yes" name="ai-noticed" value="yes">
+        <label for="ai-yes">Yes</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="ai-no" name="ai-noticed" value="no">
+        <label for="ai-no">No</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="ai-unsure" name="ai-noticed" value="unsure">
+        <label for="ai-unsure">Not sure</label>
+      </div>
+    </div>
+
+    <button onclick="showHotelOne()">Next</button>
+  </div>
+
+  <div id="hotel-one-section" class="container hidden">
+    <h1>Hotel AI-generated Review Summary Evaluation 1</h1>
+
+    <div class="hotel-info">
+      <h2 id="hotel1-name">Hotel Name</h2>
+      <p id="hotel1-location">Location</p>
+      <p>Overall rating: <span id="hotel1-rating">0.0</span> out of 5</p>
+      <p>Price level: <span id="hotel1-price">$</span></p>
+    </div>
+
+    <p>Below are three different AI-generated review summaries of this hotel. Please read them carefully.</p>
+
+    <div class="summary-box">
+      <h3 id="hotel1-summary-1-title">Summary [Style 1]</h3>
+      <p id="hotel1-summary-1">Summary text will appear here...</p>
+    </div>
+
+    <div class="summary-box">
+      <h3 id="hotel1-summary-2-title">Summary [Style 2]</h3>
+      <p id="hotel1-summary-2">Summary text will appear here...</p>
+    </div>
+
+    <div class="summary-box">
+      <h3 id="hotel1-summary-3-title">Summary [Style 3]</h3>
+      <p id="hotel1-summary-3">Summary text will appear here...</p>
+    </div>
+
+    <div class="question">
+      <p>Which of the review summaries do you find most helpful for making a booking decision?</p>
+      <div class="radio-option">
+        <input type="radio" id="hotel1-choice-1" name="hotel1-choice" value=""> <label for="hotel1-choice-1" id="hotel1-label-1">Summary [Style 1]</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="hotel1-choice-2" name="hotel1-choice" value=""> <label for="hotel1-choice-2" id="hotel1-label-2">Summary [Style 2]</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="hotel1-choice-3" name="hotel1-choice" value=""> <label for="hotel1-choice-3" id="hotel1-label-3">Summary [Style 3]</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label for="hotel1-reason">Why did you choose this summary as the most helpful?</label>
+      <textarea id="hotel1-reason" rows="4" placeholder="Please provide a brief explanation..."></textarea>
+    </div>
+
+    <button onclick="showHotelTwo()">Next</button>
+  </div>
+
+  <div id="hotel-two-section" class="container hidden">
+    <h1>Hotel Review Summary Evaluation 2</h1>
+
+    <div class="hotel-info">
+      <h2 id="hotel2-name">Hotel Name</h2>
+      <p id="hotel2-location">Location</p>
+      <p>Overall rating: <span id="hotel2-rating">0.0</span> out of 5</p>
+      <p>Price level: <span id="hotel2-price">$</span></p>
+    </div>
+
+    <p>Below are three different AI-generated review summaries of this hotel. Please read them carefully.</p>
+
+    <div class="summary-box">
+      <h3 id="hotel2-summary-1-title">Summary [Style 1]</h3>
+      <p id="hotel2-summary-1">Summary text will appear here...</p>
+    </div>
+
+    <div class="summary-box">
+      <h3 id="hotel2-summary-2-title">Summary [Style 2]</h3>
+      <p id="hotel2-summary-2">Summary text will appear here...</p>
+    </div>
+
+    <div class="summary-box">
+      <h3 id="hotel2-summary-3-title">Summary [Style 3]</h3>
+      <p id="hotel2-summary-3">Summary text will appear here...</p>
+    </div>
+
+    <div class="question">
+      <p>Which of the review summaries do you find most helpful for making a booking decision?</p>
+      <div class="radio-option">
+        <input type="radio" id="hotel2-choice-1" name="hotel2-choice" value=""> <label for="hotel2-choice-1" id="hotel2-label-1">Summary [Style 1]</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="hotel2-choice-2" name="hotel2-choice" value=""> <label for="hotel2-choice-2" id="hotel2-label-2">Summary [Style 2]</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="hotel2-choice-3" name="hotel2-choice" value=""> <label for="hotel2-choice-3" id="hotel2-label-3">Summary [Style 3]</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label for="hotel2-reason">Why did you choose this summary as the most helpful?</label>
+      <textarea id="hotel2-reason" rows="4" placeholder="Please provide a brief explanation..."></textarea>
+    </div>
+
+    <button onclick="submitSurvey()">Submit Survey</button>
+  </div>
+
+  <div id="thank-you-section" class="container hidden">
+    <h1>Thank You!</h1>
+    <p>Your responses have been recorded. Thank you for participating in our research study.</p>
+    <p>Please return to Prolific to confirm your completion of this survey using the code below.</p>
+    <p>Completion code: <strong id="completion-code">GENERATING...</strong></p> </div>
+
+  <script>
+    // Sample hotel data (add more hotels as needed for better randomization)
+    const hotels = [
+      {
+        id: 1,
+        name: "The Manhattan at Times Square Hotel",
+        location: "New York City",
+        rating: 3.5,
+        priceLevel: "$ out of $$$",
+        summaries: {
+          A: "The Manhattan at Times Square Hotel boasts a prime location near Times Square and Broadway that guests appreciate, but it falls short in other areas. While the lobby is admired for its beauty, travelers are critical of the outdated and poorly maintained rooms. Some guests commend the cleanliness and comfortable accommodations, but others are let down by housekeeping inconsistencies. \n\nService quality is a mixed bag, with both commendations and complaints. Additional fees and inadequate amenities also contribute to the perception of poor value for the cost. Noise disturbances from non-soundproof rooms and construction add to the grievances.",
+          B: "The Manhattan at Times Square Hotel is lauded for its central location, providing easy access to NYC attractions like Times Square, Broadway, and Central Park. However, reviews highlight significant issues with cleanliness, outdated facilities, and inconsistent service. While some guests enjoy renovated rooms and commendable staff, others report dirty, poorly maintained rooms and unhelpful service. The hotel is undergoing renovations, causing noise and inconvenience, and there are frequent complaints about additional fees and unreturned deposits. Despite its prime location, the hotel's value is questioned due to these inconsistencies and hidden charges. \n\nUniqueness: The hotel is undergoing significant renovations, resulting in a wide disparity between renovated and non-renovated rooms, impacting guest experiences.",
+          C: "The Manhattan at Times Square Hotel is lauded for its prime location, offering easy access to major NYC attractions like Times Square, Broadway, and Central Park, making it ideal for tourists. However, reviews reveal contrasting experiences regarding cleanliness and value. Some guests found renovated rooms clean and comfortable, while others reported outdated, dirty conditions with maintenance issues such as broken fixtures and mold. Noise from thin walls and ongoing renovations was a common complaint. The hotel's value is questioned due to additional fees and inconsistent service, despite its convenient location. Issues with deposit refunds and poor customer service further impact guest satisfaction. Overall, while the location is a significant advantage, the hotel's condition and service quality vary, affecting its perceived value.",
+          D: "Upon arriving at The Manhattan at Times Square, guests experience a mix of excitement and trepidation. The hotel's prime location near Times Square and Broadway offers an unforgettable New York experience. However, the journey from check-in to check-out is often fraught with issues. While staff members like Racquel and Mohammad are praised for their exceptional service, ongoing renovations and outdated facilities lead to frustration. Guests frequently report problems with cleanliness, noise, and unexpected fees, overshadowing the city's allure. Despite these challenges, the hotel's location remains its saving grace, providing easy access to iconic attractions. \n\nUniqueness: The hotel is undergoing renovations, with some floors already transformed, offering a stark contrast between the old and new. The staff's exceptional service, particularly from Racquel and Mohammad, often leaves a lasting positive impression.",
+          E: "Guests at The Manhattan at Times Square experience a mix of excitement and disappointment. The hotel's prime location near Times Square and Broadway is a major draw, offering easy access to New York's attractions. However, the experience from check-in to check-out can be inconsistent. While staff members like Racquel and Mohammad receive praise for their exceptional service, ongoing renovations and outdated facilities often lead to dissatisfaction. Many guests report issues with room conditions, such as malfunctioning air conditioning, cleanliness concerns, and noise. Additionally, some guests have faced challenges with security deposit refunds. Despite these issues, the allure of the location and occasional upgrades to renovated rooms provide glimpses of the hotel's potential. Ultimately, while the stay may not be perfect, the vibrant city outside often compensates for the hotel's shortcomings."
+        }
+      },
+      {
+        id: 2,
+        name: "Hotel Indigo NYC Financial District, an IHG hotel",
+        location: "New York City",
+        rating: 4,
+        priceLevel: "$ out of $$$",
+        summaries: {
+          A: "Hotel Indigo NYC Financial District is commended for its cleanliness and serene atmosphere, with guests frequently praising its well-maintained rooms and comfortable beds. While the hotel's location is popular for its convenience and quieter setting, some guests have faced navigational challenges. The amenities, including a well-equipped gym, receive positive mentions, though nighttime options may be limited. \n\nWhile many travelers speak highly of the friendly staff, others have had less favorable encounters with service professionalism. Opinions on the hotel's value are divided, with some guests appreciating the affordability, despite occasional billing issues.",
+          B: "The hotel is ideally located in New York's Financial District, providing easy access to subway lines and attractions like Battery Park and the 9/11 Memorial. Guests appreciate the modern, clean rooms, though some find them small. The hotel is generally quiet, with comfortable beds ensuring a good night's rest. Cleanliness is praised, but some guests noted inconsistent cleaning during extended stays. The staff is often described as friendly and helpful, though there are occasional issues with service, such as deposit returns and taxi arrangements. Some guests experienced problems with room safety and noise. Overall, the hotel offers good value for its location, especially for short stays.\n\nUniqueness: The hotel features a small restaurant with an extended happy hour and a well-equipped gym, and it is pet-friendly, welcoming dogs with enthusiasm.",
+          C: "The hotel is ideally located in New York's Financial District, offering easy access to subway lines and attractions like the 9/11 Memorial and Battery Park. Guests appreciate the proximity to restaurants and shops. Cleanliness receives mixed reviews; while many find the rooms modern and well-maintained, some note inconsistent cleaning services. Room sizes are typical for Manhattan but may feel small, and additional charges, such as for luggage storage, detract from the value. Some guests report issues with deposits and service, while others praise the friendly staff and efficient check-in. The hotel features a well-equipped gym and a restaurant with good food. Despite some concerns, the hotel is generally considered a good choice for its location and amenities, though improvements in service and transparency regarding fees could enhance the guest experience.",
+          D: "Arriving at the heart of New York's Financial District, guests are immediately enveloped by the vibrant energy of the city. The hotel's prime location, steps from iconic sites like Trinity Church and the 9/11 Memorial, offers unparalleled convenience. Rooms are modern, clean, and cozy, though compact, with comfortable beds ensuring restful nights. The staff's warmth and efficiency enhance the experience, but issues with deposits and taxi services can mar the stay. Dining at the on-site restaurant is a delight, with delicious offerings and extended happy hours. However, some guests report noise issues and elevator delays. The hotel‘s towering design offers breathtaking views, and its proximity to multiple subway lines makes it a perfect launchpad for city adventures.\n\nUniqueness: The hotel's towering design offers breathtaking views, and its proximity to multiple subway lines makes it a perfect launchpad for city adventures.",
+          E: "Located in New York's Financial District, the hotel offers a prime location near Trinity Church and the 9/11 Memorial, with easy subway access. Guests appreciate the modern, clean rooms and friendly staff, though some note a decline in room upkeep during their stay. Issues such as unexpected deposit charges, long elevator waits, and street noise are mentioned. Despite these, the comfortable beds and vibrant surroundings provide value, with many guests eager to return. The hotel restaurant receives praise for its food, and the location is ideal for exploring nearby attractions. However, some guests report problems with room safety and deposit returns, and the small room size is noted. Overall, the hotel's location and staff are highlights, but improvements in service and room features could enhance the experience."
+        }
+      },
+       {
+        id: 3,
+        name: "Lex Boutique Hotel",
+        location: "New York City",
+        rating: 4.5,
+        priceLevel: "$ out of $$$",
+        summaries: {
+          A: "The Lex Boutique Hotel garners high praise for its friendly staff and efficient service, which contribute to a memorable stay for guests. The range of amenities, including a rooftop space and complimentary breakfast, along with the hotel's noted cleanliness and comfort, are popular among guests.\n\nWhile the rooms are generally appreciated for their tidiness and comfort, offering a pleasant repose in NYC, views on value for money vary, with some guests finding the pricing reasonable. The hotel's prime location is also a highlight, offering easy access to sightseeing, dining, and public transit.",
+          B: "The Lex Hotel in NYC is highly praised for its excellent location, conveniently near metro stations and major attractions. Guests appreciate the cleanliness and comfort of the well-maintained rooms, with some noting their spaciousness by New York standards. The hotel offers good value, with many guests highlighting the friendly and helpful staff as a standout feature, enhancing their experience. The inclusion of a simple breakfast is appreciated, though some find it basic. \n\nUniqueness: The hotel features a rooftop with stunning city views, including the Chrysler Building, which guests find particularly appealing. Additionally, the staff's exceptional service, especially individuals like Arkar, Romeo, and Daisy, is frequently mentioned as a highlight, enhancing the overall guest experience.",
+          C: "The Lex Hotel in NYC is highly praised for its prime location, close to metro stations and major attractions, making it ideal for tourists and business travelers. Guests appreciate the quiet surroundings despite the bustling city. The hotel is noted for its cleanliness, with well-maintained rooms and common areas. While some guests find the hotel offers good value for its location and amenities, others feel the price is high, especially given the basic breakfast and occasional room issues like noisy air conditioning. The friendly and helpful staff, particularly individuals like Chris, Arkar, and Daisy, enhance the hotel's appeal. The rooftop views are a highlight, contributing positively to the overall experience. Despite some negative reviews regarding room conditions and pricing, the hotel remains a recommended choice for many visitors due to its service and location.",
+          D: "Arriving at The Lex Hotel, guests are welcomed by a warm and professional staff, with individuals like Chris, Arkar, and Daisy enhancing the experience. The hotel is ideally located near two metro stations and iconic NYC attractions, making it convenient for exploration. Rooms are clean, spacious by NYC standards, and provide a comfortable retreat. Guests enjoy the rooftop's stunning views, offering a peaceful escape from the city's hustle. Breakfast is basic but appreciated, and the staff's friendliness makes guests feel at home. Some reviews mention noise issues with air conditioning and ventilation, but overall, the hotel is praised for its value and service.\n\nUniqueness: The Lex Hotel's standout feature is its rooftop, offering breathtaking views of the Chrysler Building, coupled with an exceptionally attentive and personable staff that transforms a simple stay into a cherished memory.",
+          E: "Arriving at the Lex Hotel, guests are greeted with warm hospitality from staff like Chris and Arkar, who offer friendly smiles and helpful tips. The hotel boasts a prime location, close to iconic attractions and eateries, making it an ideal base for city exploration. Rooms are simple yet clean and spacious by New York standards, providing a quiet retreat from the bustling streets. Guests enjoy the rooftop's stunning city views, a serene spot to unwind. Breakfast is basic but satisfactory. While some guests encounter issues like noisy air conditioning, the overall value and exceptional service leave a lasting impression. However, a few reviews mention dissatisfaction with room conditions and pricing. Despite minor drawbacks, many guests express a desire to return, drawn by the hotel's charm and genuine hospitality that made their stay memorable."
+        }
+      },
+      {
+        id: 4,
+        name: "Millennium Hotel Broadway Times Square",
+        location: "New York City",
+        rating: 3.5,
+        priceLevel: "$$ out of $$$",
+        summaries: {
+          A: "Nestled in the heart of the city, the Millennium Hotel Broadway Times Square receives accolades for its prime location and the professionalism of its staff, who are often described as attentive and friendly. However, some visitors point out the need for room renovations and express concerns about noise, especially from the bustling Times Square.\n\nWhile the ambiance offers a mix of historic charm and lively nightlife, critics often highlight the hotel's shortcomings in value, citing unexpected fees and the condition of amenities and accommodations.",
+          B: "The Millennium Hotel in Times Square boasts a prime location for exploring New York City, with easy access to Broadway shows, restaurants, and major attractions. However, reviews reveal mixed experiences regarding cleanliness and value. While some guests appreciate the spacious rooms and comfortable beds, others report outdated furnishings, maintenance issues, and inconsistent housekeeping. The hotel lacks amenities such as a restaurant or bar, and some guests have faced challenges with room temperature control and noise. Despite these drawbacks, the staff, particularly individuals like Syeda, Daniel, and Jenny, receive high praise for their exceptional service and hospitality.\n\nUniqueness: The hotel offers stunning views of Times Square from higher floors, which many guests find memorable and a highlight of their stay.",
+          C: "The hotel is centrally located near Times Square, ideal for sightseeing and accessing local attractions. Guests appreciate the convenience of being in the heart of the city, with easy access to public transportation and nearby dining options. However, the location also means street noise can be an issue for some guests. Cleanliness is inconsistent, with some rooms clean and well-maintained, while others report outdated decor, worn furniture, and inadequate housekeeping. The hotel needs renovation, with mentions of broken fixtures and a lack of modern amenities. Overall value is debated; some appreciate the affordability and location, while others feel it doesn't meet its four-star rating, citing additional fees and a lack of amenities like a restaurant or bar. The staff is praised for their friendliness and helpfulness, enhancing the experience for many guests.",
+          D: "Upon arriving at the Millennium Hotel in Times Square, guests are greeted by the bustling energy of New York City. The location is unbeatable, with the vibrant lights of Broadway just steps away. However, the initial excitement often gives way to mixed emotions as guests encounter the hotel's dated decor and inconsistent amenities. While some rooms offer breathtaking views of the cityscape, others are plagued by maintenance issues, such as faulty thermostats and clogged drains. The cleanliness of the rooms varies, with some guests finding their accommodations spotless, while others report dust and stains.\n\nDespite these challenges, the staff, particularly individuals like Syeda, Daniel, and Jenny, receive high praise for their exceptional service and warm hospitality. Their efforts often make up for the hotel's shortcomings, leaving guests with a sense of gratitude. The overall value of the stay is debated, with some guests feeling the location justifies the cost, while others are disappointed by the lack of promised amenities.\n\nUniqueness: The hotel's standout feature is its staff, who consistently go above and beyond to enhance the guest experience, often compensating for the property's physical shortcomings.",
+          E: "Arriving at the Millennium Hotel in Times Square, guests are immediately struck by its prime location, just steps from the vibrant heart of New York City. The excitement of the city is palpable, but the hotel itself is a mixed bag. While some guests are greeted warmly by staff like Syeda and Daniel, who go above and beyond to make stays memorable, others find the check-in process slow and the service lacking.\n\nThe rooms, though spacious with stunning views, often disappoint with their outdated decor and maintenance issues. Guests frequently mention problems with heating, cooling, and cleanliness, with some rooms feeling more like a sauna than a sanctuary. Despite these setbacks, the hotel's location and the occasional room upgrade keep some guests returning.\n\nAs guests depart, they reflect on the overall value. For those prioritizing location and friendly staff, the Millennium offers a convenient stay. However, for those seeking modern amenities and consistent service, the experience can feel frustratingly below expectations."
+        }
+      },
+      {
+        id: 5,
+        name: "Renaissance New York Chelsea Hotel",
+        location: "New York City",
+        rating: 4,
+        priceLevel: "$$ out of $$$",
+        summaries: {
+          A: "The Renaissance New York Chelsea Hotel boasts a chic and stylish atmosphere that captivates many guests, with modern furnishings and artistic flair, although the on-site club can sometimes contribute to noise. Cleanliness is a strong point, with numerous travelers commending the well-kept rooms and public areas. Opinions on service vary; a number of guests describe the staff as professional and friendly, while others have had less favorable experiences. The hotel's value receives mixed reviews, with some visitors satisfied but others pointing out concerns regarding room size, noise levels, and unexpected costs.\n\nAmenities are generally well-received, especially the comfortable accommodations and prime location, yet a few guests have mentioned issues with hot water and limited breakfast choices. As for the location, it is celebrated for its convenience to local attractions and transit, though dining options can be hit or miss. Room feedback is polarized, with some guests praising the views and cleanliness, while others are dissatisfied with the size and noise.",
+          B: "The Renaissance Hotel in Chelsea, NYC, is lauded for its central location, ideal for exploring attractions like Madison Square Garden and the High Line. Guests enjoy the modern, clean rooms and comfortable beds, though some find them small by NYC standards. Cleanliness and daily housekeeping are praised, but the $30 nightly 'resort fee' is criticized for lacking value, and issues with heating and hot water are noted. The rooftop nightclub can cause noise disturbances, especially on higher floors. The hotel is distinguished by its exceptional staff service, particularly Alejandro, who is frequently mentioned for his helpfulness and friendly demeanor, significantly enhancing the guest experience.\n\nUniqueness: The hotel stands out for its exceptional staff service, particularly Alejandro, who is frequently mentioned for his helpfulness and friendly demeanor, enhancing the guest experience significantly.",
+          C: "The Renaissance Hotel in Chelsea, NYC, is lauded for its central location, ideal for exploring attractions like Madison Square Garden and the High Line. Guests appreciate the vibrant neighborhood and proximity to public transit. Cleanliness and modern decor are generally praised, though issues with heating and hot water are noted, affecting comfort. The $30 'resort fee' is criticized as unnecessary, lacking typical resort amenities. Noise from the nightclub is a concern for some. Despite these issues, the hotel is often recommended for its location and friendly staff, particularly Alejandro, who is frequently commended for exceptional service. Overall, the hotel offers a stylish stay with some service inconsistencies, but its prime location and attentive staff make it a popular choice for visitors.",
+          D: "Upon arriving at the Renaissance Hotel in Chelsea, NYC, guests are welcomed by a modern lobby and attentive staff, setting the stage for an exciting stay. The hotel's prime location offers easy access to attractions like Madison Square Garden and the High Line. Rooms are stylish and comfortable, with plush bedding and city views, though some find them small. Cleanliness is praised, but issues like a 'resort fee,'' heating problems, and occasional service lapses frustrate guests. Despite these, the vibrant atmosphere and exceptional service, particularly from staff like Alejandro, leave a lasting impression.\n\nUniqueness: The hotel features a rooftop nightclub, offering a lively nightlife experience, but it can be noisy for guests on higher floors.",
+          E: "Arriving at the Renaissance Hotel in Chelsea, NYC, guests are impressed by its prime location, offering a peaceful retreat amidst vibrant city life. The lobby, though compact, is welcoming with a cozy bar and friendly staff. Rooms are generally clean and modern, featuring comfortable beds and updated amenities. However, the $30 'resort fee' is a common complaint, as it lacks typical resort amenities. Guests appreciate the hotel's strategic location for exploring nearby attractions, but service inconsistencies and issues like inadequate heating and noise from the rooftop nightclub can be frustrating. Despite these challenges, the attentive staff, particularly Alejandro, often enhance the experience with exceptional service. Overall, guests have mixed feelings about the value, with some praising the location and staff, while others are deterred by the fees and service issues."
+        }
+      },
+       {
+        id: 6,
+        name: "The Bernic Hotel New York City, Tapestry Collection by Hilton",
+        location: "New York City",
+        rating: 4.5,
+        priceLevel: "$$ out of $$$",
+        summaries: {
+          A: "Nestled in a prime location, The Bernic Hotel New York City, Tapestry Collection by Hilton, is celebrated for its proximity to iconic attractions and convenient transport. Guests frequently commend the hotel for its modern charm and the professionalism of its staff, ensuring a stay that is both comfortable and accommodating.\n\nWhile the modern amenities and exceptional cleanliness receive high marks, opinions on value and noise levels vary, with some guests mentioning disturbances and questioning the price relative to amenities offered. Despite these concerns, the overall atmosphere and service quality make The Bernic a popular choice among travelers.",
+          B: "The Bernic Hotel in NYC is lauded for its prime location, close to major attractions like Times Square and Rockefeller Plaza, and its proximity to public transport. Guests frequently commend the hotel's cleanliness, highlighting spotless rooms and modern amenities such as heated bathroom floors and strong water pressure. However, some reviews mention noise issues due to the urban setting, recommending earplugs for light sleepers. While the overall value is considered good, some guests find the pricing high for the room size and amenities.\n\nUniqueness: The exceptional service from staff members, particularly Kelsey, Brittany, and Ibrahim, is a standout feature, with many guests citing their friendliness and willingness to go above and beyond as a key reason for returning. The hotel also offers unique features like heated bathroom floors and a partnership with a nearby gym..",
+          C: "The Bernic Hotel in NYC is highly praised for its convenient location near major attractions like Times Square and Rockefeller Plaza, with easy access to public transportation. Guests commend the cleanliness and modern amenities, though some note noise issues due to the urban setting. The hotel is considered a good value, with standout service from friendly and accommodating staff, particularly Kelsey, Brittany, and Ibrahim. However, some guests feel the pricing is high for the room size and amenities. Despite minor drawbacks, such as noise and occasional maintenance issues, the hotel is generally recommended for its location, cleanliness, and attentive service. The lack of certain amenities, like daily bottled water and tableware, is noted, but the overall experience is positive, with many guests planning to return.",
+          D: "Arriving at The Bernic Hotel, guests are welcomed by exceptional staff, notably Kelsey and Brittany, who ensure a seamless check-in and memorable stay. The hotel's prime location offers easy access to iconic NYC landmarks, making it an ideal base for exploration. Rooms, though compact, are impeccably clean and feature modern amenities like heated bathroom floors and plush bedding. Despite occasional city noise, the hotel's tranquility and cleanliness provide a welcome respite. Guests appreciate thoughtful touches, such as complimentary fruit at the front desk and attentive service. Many vow to return, drawn by the exceptional service and value. However, some guests note issues with noise and room pricing. Overall, the staff's kindness and professionalism create a 'home away from home' atmosphere.\n\nUniqueness: The Bernic stands out for its extraordinary staff, particularly Kelsey, whose kindness and professionalism create a 'home away from home' atmosphere.",
+          E: "Arriving at The Bernic Hotel, guests are warmly welcomed by exceptional staff like Kelsey and Brittany, who go above and beyond to ensure a seamless check-in. The hotel's prime location offers easy access to iconic NYC landmarks, making it an ideal base for exploration. Guests appreciate the immaculate cleanliness of the rooms, with heated bathroom floors and plush bedding adding a touch of luxury. Despite occasional city noise, the comfort and modern amenities, such as strong water pressure and espresso machines, ensure a restful stay.\n\nThroughout their visit, guests value the attentive service, from quick responses to minor mishaps to thoughtful upgrades. As they depart, many reflect on the exceptional value and hospitality, vowing to return to this hidden gem that feels like a home away from home. The Bernic Hotel consistently delivers a memorable experience, making it a top choice for travelers."
+        }
+      },
+      {
+        id: 7,
+        name: "Hyatt Centric Wall Street New York",
+        location: "New York City",
+        rating: 3.5,
+        priceLevel: "$$$ out of $$$",
+        summaries: {
+          A: "Hyatt Centric Wall Street New York receives mixed reviews from guests. While the hotel's location in Lower Manhattan is often lauded for its convenience, some guests feel it lacks exceptional qualities. Its stylish rooms and modern decor contribute to a generally well-regarded atmosphere, though opinions on value are less favorable, with criticisms of high prices for what some consider average services.\n\nCleanliness is satisfactory for many, but some point out housekeeping issues. The service and room quality elicit varied reactions, with reports of both prompt, friendly interactions and unsatisfactory, inattentive responses. Amenities are perceived as adequate but not impressive, particularly after the hotel's rebranding.",
+          B: "The Hyatt Centric Wall Street NY is conveniently located in the Financial District, offering easy access to major attractions and subway lines. Reviews reveal mixed experiences, particularly regarding cleanliness, with issues like mold, dust, and outdated facilities. The value is debated; some guests find it overpriced for the amenities and service, while others appreciate the spacious rooms and friendly staff. However, problems with room temperature control and the absence of amenities like a restaurant or bar are noted. \N\NUniqueness: The hotel is recognized for its spacious rooms, larger than typical NYC standards, and its prime location near the Staten Island Ferry and metro stations. Unexpected drawbacks include lack of temperature control and missing amenities such as a restaurant or bar.",
+          C: "The Hyatt Centric Wall Street NY is lauded for its prime location in the Financial District, providing easy access to major attractions and public transportation. However, reviews reveal inconsistent experiences with cleanliness, service, and value. While some guests appreciated the spacious rooms and friendly staff, others reported issues such as mold, outdated furnishings, and maintenance problems. The hotel's value is questioned due to high prices and additional fees, with some guests feeling the service and amenities do not justify the cost. Complaints include poor customer service, heating issues, and lack of amenities like room service and dining options. Despite its convenient location, the hotel may not meet expectations for those seeking a luxury experience, and potential guests should be aware of ongoing construction noise and service inconsistencies.",
+          D: "Upon arriving at the Hyatt Centric Wall Street, guests are welcomed by its prime location in the Financial District, offering easy access to landmarks like the Statue of Liberty and Brooklyn Bridge. However, experiences vary widely. Some guests appreciate the spacious rooms and friendly staff, while others are disappointed by outdated facilities, inconsistent service, and unexpected fees. Cleanliness is a recurring issue, with reports of mold, broken fixtures, and poor maintenance. The hotel often fails to meet the expectations of a Hyatt property, leaving many guests feeling shortchanged. Despite its potential, the hotel struggles to deliver value, with complaints about noise, lack of amenities, and poor customer service. \n\nUniqueness: The hotel's location is its standout feature, providing convenient access to major attractions and subway lines, making it ideal for exploring Lower Manhattan.",
+          E: "Arriving at the Hyatt Centric Wall Street, guests are initially captivated by its prime location in the Financial District, offering easy access to landmarks like the Statue of Liberty and Brooklyn Bridge. However, the excitement often fades as guests encounter issues. Rooms, while spacious, show signs of wear, with malfunctioning air conditioning, uncomfortable mattresses, and cleanliness concerns. The hotel lacks amenities like room service and a restaurant, and unexpected fees further diminish value. Staff receive mixed reviews, with some guests praising their friendliness, while others report rude interactions. Construction noise and maintenance issues, such as broken fixtures and poor temperature control, add to the frustration. Despite the convenient location, many guests question whether it justifies the overall experience, leaving with mixed emotions about their stay." 
+        }
+      },
+      {
+        id: 8,
+        name: "JW Marriott Essex House New York",
+        location: "New York City",
+        rating: 4,
+        priceLevel: "$$$ out of $$$",
+        summaries: {
+          A: "The JW Marriott Essex House New York garners mixed reviews, with its coveted location opposite Central Park receiving unanimous praise from guests. While the hotel's atmosphere is often described as charming and welcoming, opinions about value are less favorable, with some guests feeling that the price point isn't justified by the service and amenities provided.\n\nRoom experiences vary, from comfortable and spacious to some in need of attention. Commendations are frequent for the cleanliness of the establishment, but the quality of service seems to oscillate, leaving some guests with unmet expectations.",
+          B: "The JW Marriott Essex House in Manhattan boasts a prime location on Central Park South, offering easy access to major attractions like Times Square and Lincoln Center. Guests appreciate the hotel's historic charm and art deco design, but reviews reveal mixed experiences with cleanliness and service. While some guests praise the attentive staff and comfortable accommodations, others report issues with room maintenance, noise disturbances, and inconsistent service quality. The hotel's value is questioned due to high prices and additional fees, such as the destination fee, which some find unclear or unnecessary. \n\nUniqueness: The hotel is noted for its historic status and art deco architecture, offering a unique blend of old-world charm and modern amenities. However, the lack of in-room coffee makers and limited electrical outlets near beds are unexpected for a hotel of this caliber.",
+          C: "The JW Marriott Essex House in Manhattan garners mixed reviews, particularly regarding its location, cleanliness, and value. The hotel's prime location near Central Park is frequently praised, making it a convenient choice for tourists. However, opinions on cleanliness are divided; some guests commend the well-maintained rooms, while others report issues like dusty surfaces and leftover items. The hotel's value is often criticized, with guests expressing dissatisfaction over high prices, additional fees, and inconsistent service. Complaints include a lack of in-room amenities like coffee makers and poor service quality. While some guests appreciate the historic charm and friendly staff, others feel the service and facilities do not justify the cost, suggesting alternative accommodations for better value. Overall, the hotel‚Äôs reputation is marred by inconsistent experiences and unmet expectations.",
+          D: "Arriving at the JW Marriott Essex House, guests are drawn to its prime Central Park South location, offering easy access to iconic NYC landmarks. However, experiences vary widely. While some guests appreciate the Art Deco charm and attentive staff, others report service inconsistencies, cleanliness issues, and unexpected fees. Noise from construction and fans, along with the absence of in-room coffee makers, detract from the experience. The Executive Lounge and Bourbon Steakhouse receive praise, but the lounge can be overcrowded. Some guests report billing issues and unprofessional management responses. Despite these challenges, the hotel is noted for its efforts to personalize special occasions with thoughtful gestures like cakes and balloons.\n\nUniqueness: The hotel‚Äôs location offers unparalleled views of Central Park, and the staff's efforts to personalize special occasions, such as birthdays, with thoughtful gestures like cakes and balloons, stand out.",
+          E: "The JW Marriott Essex House boasts a prime location on Central Park South, offering easy access to New York City landmarks. Guests appreciate the elegant Art Deco charm and attentive staff, with highlights including birthday surprises and room upgrades. However, experiences vary, with some guests facing noise disturbances, outdated amenities, and inconsistent service. Cleanliness is a mixed bag, with some praising immaculate rooms, while others report dusty surfaces and leftover items. The Executive Lounge and dining receive mixed reviews, with some enjoying the offerings, while others find them lacking for a hotel of this caliber. Issues such as unexpected charges, poor service, and management's lack of responsiveness are noted. Despite its luxury, the Essex House presents challenges, leaving guests with varied impressions of their stay."
+        }
+      },
+       {
+        id: 9,
+        name: "The Bryant Park Hotel",
+        location: "New York City",
+        rating: 4.5,
+        priceLevel: "$$$ out of $$$",
+        summaries: {
+          A: "The Bryant Park Hotel is highly regarded for its elegant atmosphere and stylish rooms, according to travelers who also appreciate the sophistication of its bar and the personal touches that create a welcoming vibe. Guests have called out the cleanliness and modernity of the spacious rooms, and while the hotel provides good value, they advise being mindful of additional costs.\n\nThe luxurious amenities, including the bathrooms and breathtaking views, complement the attentive and personalized service offered by the staff. Its prime location near Bryant Park and various NYC attractions, paired with effective noise reduction, makes for quiet and comfortable stays, despite minor street noise in some rooms.",
+          B: "The Bryant Park Hotel is highly praised for its prime Midtown location, offering easy access to major attractions like Times Square, Broadway, and the New York Public Library. Guests appreciate the proximity to public transportation and the tranquil setting across from Bryant Park. The hotel is noted for its cleanliness, with spacious, well-maintained rooms that are considered large by New York City standards. The recently renovated rooms receive positive feedback for their modern design and comfort. The attentive and friendly staff, particularly Jo at the front desk, are frequently mentioned for their exceptional service, enhancing the overall experience. Guests enjoy complimentary morning coffee and muffins, adding to the hotel's appeal.\n\nUniqueness: The hotel's standout feature is its staff, especially Jo, who consistently goes above and beyond to create a personalized and memorable stay for guests.",
+          C: "The Bryant Park Hotel is celebrated for its prime Midtown location, offering easy access to major attractions like Times Square and Broadway. Guests appreciate the proximity to public transportation and the serene setting of Bryant Park. Cleanliness is consistently praised, with spacious, well-maintained rooms and modern amenities. Recent renovations have enhanced the guest experience. The hotel is considered a worthwhile investment, blending luxury and comfort. Exceptional service, particularly from staff members like Jo, adds significant value, making guests feel welcomed and well-cared for. Despite minor issues, such as occasional noise or service lapses, the overall experience is positive, with many guests expressing a desire to return. The staff's attentiveness and personal touches, like surprise gifts for special occasions, further enhance the stay, making it memorable and enjoyable.",
+          D: "Arriving at The Bryant Park Hotel, guests are welcomed by a warm and attentive staff, with Jo at the front desk frequently praised for her exceptional service. Located in a prime Midtown spot, the hotel offers a peaceful retreat amidst the city's bustle, with Bryant Park just steps away. The recently renovated rooms are spacious, clean, and comfortable, boasting stunning views of the park and skyline. Guests appreciate the thoughtful amenities, such as morning coffee and muffins, and the attentive service that makes each stay feel special. While minor issues like occasional street noise and privacy button mishaps are noted, the overall experience is one of luxury and care, making it a top choice for visitors.\n\nUniqueness: The hotel's standout feature is its staff, especially Jo, who consistently goes above and beyond to create a welcoming, personalized experience, making guests feel like family.",
+          E: "Arriving at The Bryant Park Hotel, guests are enveloped in warmth and charm, thanks to the exceptional staff, particularly Jo at the front desk. Nestled in a prime Midtown location, the hotel offers a serene escape amidst the city's hustle and bustle, with Bryant Park just steps away. The rooms, recently renovated, are spacious and impeccably clean, providing a comfortable retreat with stunning views of the park and city skyline.\n\nThroughout their stay, guests enjoy thoughtful touches like morning coffee and muffins, enhancing the overall value of their experience. The staff's genuine hospitality and attention to detail make every visit memorable, whether it's a special occasion or a simple getaway. As guests depart, they leave with fond memories and a longing to return, knowing they've found a true gem in the heart of New York City."
+        }
+      }
+    ];
+
+    // Survey data storage
+    const surveyData = {
+      prolificId: "",
+      consent: false,
+      surveyStartTime: null,
+      surveyEndTime: null,
+      reviewCount: "",
+      goodRating: "",
+      aiNoticed: "",
+      hotel1: {
+        id: null,
+        name: "",
+        shownStyles: [], // e.g., ['A', 'C', 'E']
+        chosenSummaryStyle: "", // e.g., 'C'
+        reason: ""
+      },
+      hotel2: {
+        id: null,
+        name: "",
+        shownStyles: [],
+        chosenSummaryStyle: "",
+        reason: ""
+      },
+      completionCode: "C8A3F7ED" // Example static Prolific code
+    };
+
+    // --- Helper Functions ---
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    }
+
+    function getRandomHotels(allHotels, count) {
+      const shuffled = shuffleArray([...allHotels]);
+      return shuffled.slice(0, count);
+    }
+
+    function getRandomStyles() {
+      const otherStyles = ['B', 'C', 'D', 'E'];
+      const shuffledOthers = shuffleArray([...otherStyles]);
+      // Always include 'A' and the first two shuffled styles from the rest
+      const selectedStyles = ['A', ...shuffledOthers.slice(0, 2)];
+      return shuffleArray(selectedStyles); // Shuffle the final three selected styles so A isn't always first
+    }
+
+    function updateProgress(percentage) {
+        document.getElementById('progress').style.width = `${percentage}%`;
+    }
+
+    function hideAllSections() {
+        document.getElementById('welcome-section').classList.add('hidden');
+        document.getElementById('consent-section').classList.add('hidden');
+        document.getElementById('preliminary-questions').classList.add('hidden');
+        document.getElementById('hotel-one-section').classList.add('hidden');
+        document.getElementById('hotel-two-section').classList.add('hidden');
+        document.getElementById('thank-you-section').classList.add('hidden');
+    }
+
+    // --- Navigation and Logic Functions ---
+
+    function showConsent() {
+      const prolificId = document.getElementById('prolific-id').value.trim();
+      if (!prolificId) {
+        alert('Please enter your Prolific ID.');
+        return;
+      }
+      surveyData.prolificId = prolificId;
+      surveyData.surveyStartTime = new Date().toISOString(); // Record start time
+
+      hideAllSections();
+      document.getElementById('consent-section').classList.remove('hidden');
+      updateProgress(10); // Example progress
+      window.scrollTo(0, 0); // Scroll to top
+    }
+
+    function handleConsent() {
+      const consentYes = document.getElementById('consent-yes').checked;
+      const consentNo = document.getElementById('consent-no').checked;
+
+      if (!consentYes && !consentNo) {
+        alert('Please indicate whether you consent to participate.');
+        return;
+      }
+
+      if (consentNo) {
+        hideAllSections();
+        document.body.innerHTML = '<div class="container"><h1>Survey Ended</h1><p>Thank you for your consideration. Since you did not consent, the survey cannot proceed. You may close this window.</p></div>';
+        return;
+      }
+
+      surveyData.consent = true;
+
+      // Pre-select hotels and summaries ONLY ONCE after consent
+      const selectedHotels = getRandomHotels(hotels, 2);
+
+      // First hotel setup
+      const hotel1Data = selectedHotels[0];
+      surveyData.hotel1.id = hotel1Data.id;
+      surveyData.hotel1.name = hotel1Data.name; // Store name for potential later use/debugging
+      surveyData.hotel1.shownStyles = getRandomStyles();
+
+      // Second hotel setup
+      const hotel2Data = selectedHotels[1];
+      surveyData.hotel2.id = hotel2Data.id;
+      surveyData.hotel2.name = hotel2Data.name;
+      surveyData.hotel2.shownStyles = getRandomStyles();
+
+      // Proceed to preliminary questions
+      hideAllSections();
+      document.getElementById('preliminary-questions').classList.remove('hidden');
+      updateProgress(20);
+      window.scrollTo(0, 0);
+    }
+
+    function validatePreliminaryQuestions() {
+      const reviewCount = document.querySelector('input[name="review-count"]:checked');
+      const goodRating = document.querySelector('input[name="good-rating"]:checked');
+      const aiNoticed = document.querySelector('input[name="ai-noticed"]:checked');
+
+      if (!reviewCount || !goodRating || !aiNoticed) {
+        alert('Please answer all preliminary questions.');
+        return false;
+      }
+
+      surveyData.reviewCount = reviewCount.value;
+      surveyData.goodRating = goodRating.value;
+      surveyData.aiNoticed = aiNoticed.value;
+      return true;
+    }
+
+    function showHotelOne() {
+      if (!validatePreliminaryQuestions()) return;
+
+      hideAllSections();
+      document.getElementById('hotel-one-section').classList.remove('hidden');
+      updateProgress(40);
+      window.scrollTo(0, 0);
+
+      // Load hotel 1 data
+      const hotel = hotels.find(h => h.id === surveyData.hotel1.id);
+      const summaryStyles = surveyData.hotel1.shownStyles; // e.g., ['C', 'A', 'E']
+
+      document.getElementById('hotel1-name').textContent = hotel.name;
+      document.getElementById('hotel1-location').textContent = hotel.location;
+      document.getElementById('hotel1-rating').textContent = hotel.rating.toFixed(1); // Format rating
+      document.getElementById('hotel1-price').textContent = hotel.priceLevel;
+
+      // Load summaries and update corresponding radio buttons/labels
+      for (let i = 0; i < summaryStyles.length; i++) {
+          const style = summaryStyles[i]; // e.g., 'C'
+          const summaryIndex = i + 1; // 1, 2, or 3
+
+          document.getElementById(`hotel1-summary-${summaryIndex}-title`).textContent = `Summary ${style}`;
+          document.getElementById(`hotel1-summary-${summaryIndex}`).textContent = hotel.summaries[style];
+
+          const radioInput = document.getElementById(`hotel1-choice-${summaryIndex}`);
+          const radioLabel = document.getElementById(`hotel1-label-${summaryIndex}`);
+
+          radioInput.value = style; // Set radio value to the actual style ('C')
+          radioLabel.textContent = `Summary ${style}`; // Set label text
+      }
+    }
+
+    function validateHotelOne() {
+      const chosenSummaryRadio = document.querySelector('input[name="hotel1-choice"]:checked');
+      const reason = document.getElementById('hotel1-reason').value.trim();
+
+      if (!chosenSummaryRadio) {
+        alert('Please select which summary for Hotel 1 you find most helpful.');
+        return false;
+      }
+
+      if (!reason) {
+        alert('Please explain why you chose this summary for Hotel 1.');
+        return false;
+      }
+
+      surveyData.hotel1.chosenSummaryStyle = chosenSummaryRadio.value; // Directly get the style value ('A', 'C', 'E', etc.)
+      surveyData.hotel1.reason = reason;
+      return true;
+    }
+
+    function showHotelTwo() {
+      if (!validateHotelOne()) return;
+
+      hideAllSections();
+      document.getElementById('hotel-two-section').classList.remove('hidden');
+      updateProgress(70);
+      window.scrollTo(0, 0);
+
+      // Load hotel 2 data
+      const hotel = hotels.find(h => h.id === surveyData.hotel2.id);
+      const summaryStyles = surveyData.hotel2.shownStyles; // e.g., ['A', 'D', 'B']
+
+      document.getElementById('hotel2-name').textContent = hotel.name;
+      document.getElementById('hotel2-location').textContent = hotel.location;
+      document.getElementById('hotel2-rating').textContent = hotel.rating.toFixed(1);
+      document.getElementById('hotel2-price').textContent = hotel.priceLevel;
+
+      // Load summaries and update corresponding radio buttons/labels
+      for (let i = 0; i < summaryStyles.length; i++) {
+          const style = summaryStyles[i]; // e.g., 'A'
+          const summaryIndex = i + 1; // 1, 2, or 3
+
+          document.getElementById(`hotel2-summary-${summaryIndex}-title`).textContent = `Summary ${style}`;
+          document.getElementById(`hotel2-summary-${summaryIndex}`).textContent = hotel.summaries[style];
+
+          const radioInput = document.getElementById(`hotel2-choice-${summaryIndex}`);
+          const radioLabel = document.getElementById(`hotel2-label-${summaryIndex}`);
+
+          radioInput.value = style; // Set radio value to the actual style ('A')
+          radioLabel.textContent = `Summary ${style}`; // Set label text
+      }
+    }
+
+     function validateHotelTwo() {
+      const chosenSummaryRadio = document.querySelector('input[name="hotel2-choice"]:checked');
+      const reason = document.getElementById('hotel2-reason').value.trim();
+
+      if (!chosenSummaryRadio) {
+        alert('Please select which summary for Hotel 2 you find most helpful.');
+        return false;
+      }
+
+      if (!reason) {
+        alert('Please explain why you chose this summary for Hotel 2.');
+        return false;
+      }
+
+      surveyData.hotel2.chosenSummaryStyle = chosenSummaryRadio.value; // Get the style value
+      surveyData.hotel2.reason = reason;
+      return true;
+    }
+    
+    function submitSurvey() {
+      if (!validateHotelTwo()) return;
+
+      surveyData.surveyEndTime = new Date().toISOString(); // Record end time
+
+      // --- Data Submission ---
+      console.log("Attempting to submit survey data..."); // Log attempt
+
+      // Show loading/saving indicator? (Optional)
+      const submitButton = document.querySelector('#hotel-two-section button');
+      if (submitButton) submitButton.textContent = 'Submitting...';
+      if (submitButton) submitButton.disabled = true;
+
+      // *** PASTE YOUR WEB APP URL HERE ***
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyK4VYu-87TOSqsmVhr9LpjvecmkdydsFjJw6PJ8Y7X_DjzuIlpMcL0Ws-P_BfuR_qgfA/exec";
+
+      fetch(SCRIPT_URL, {
+          method: 'POST',
+          // mode: 'no-cors', // Usually NOT needed for Apps Script Web Apps unless you have specific CORS issues
+          cache: 'no-cache',
+          headers: {
+              'Content-Type': 'application/json', // Send as JSON
+          },
+         // redirect: 'follow', // Optional, default is usually fine
+          body: JSON.stringify(surveyData), // Convert JS object to JSON string
+      })
+      .then(response => response.json()) // Parse the JSON response from Apps Script
+      .then(data => {
+          console.log('Apps Script Response:', data);
+          if(data.status === 'success') {
+             console.log("Data successfully saved to Google Sheet.");
+             // Proceed to thank you page ONLY on success
+             hideAllSections();
+             document.getElementById('completion-code').textContent = surveyData.completionCode;
+             document.getElementById('thank-you-section').classList.remove('hidden');
+             updateProgress(100);
+             window.scrollTo(0, 0);
+          } else {
+            // Handle error reported by Apps Script
+            console.error("Error reported by Apps Script:", data.message);
+            alert("Error submitting survey: " + data.message + "\nPlease try again later or contact the researcher.");
+            if (submitButton) submitButton.textContent = 'Submit Survey'; // Reset button
+            if (submitButton) submitButton.disabled = false;
+          }
+
+      })
+      .catch((error) => {
+          // Handle network errors or issues reaching Apps Script
+          console.error('Fetch Error:', error);
+          alert("Network error submitting survey. Please check your connection and try again, or contact the researcher.\nDetails: " + error);
+          if (submitButton) submitButton.textContent = 'Submit Survey'; // Reset button
+          if (submitButton) submitButton.disabled = false;
+      });
+
+      // Log data locally just in case submission fails entirely
+      console.log("Survey Data (Local Log):");
+      console.log(JSON.stringify(surveyData, null, 2));
+
+      // Don't show thank you page immediately, wait for fetch response above
+      // hideAllSections();
+      // document.getElementById('thank-you-section').classList.remove('hidden');
+      // updateProgress(100);
+      // window.scrollTo(0, 0);
+    }
+
+    // Initial setup - hide all sections except welcome
+    // (This could also be done by adding 'hidden' class in HTML initially)
+    // hideAllSections();
+    // document.getElementById('welcome-section').classList.remove('hidden');
+    // updateProgress(0); // Start progress bar at 0
+    // This initial setup is implicitly handled by the 'hidden' class in the HTML.
+    // Setting progress to 0 is good practice though.
+    updateProgress(0);
+
+
+  </script>
+</body>
+</html>
