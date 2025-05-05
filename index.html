@@ -119,6 +119,23 @@
         display: inline; /* Keep label inline */
         width: auto;
       }
+
+    /* Two-column layout for reason checkboxes */
+    #hotel1-reason-section ul,
+    #hotel2-reason-section ul {
+        list-style: none; /* Remove default bullet points */
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Create two equal columns */
+        gap: 0px 20px; /* Add gap between columns, no gap between rows needed */
+    }
+
+    #hotel1-reason-section ul li,
+    #hotel2-reason-section ul li {
+       padding: 5px 0; /* Add some vertical spacing for list items */
+    }
+
     </style>
   </head>
   <body>
@@ -165,46 +182,47 @@
       </p>
       <h1>Consent Form</h1>
       <p>
-        This study involves a web-based survey designed to examine what styles
-        of review summaries are preferred for different hotels. The study has
-        been designated by The University of Texas at Dallas Office of Human
-        Subjects Protections (OHSP) as exempt from review by an Institutional
-        Review Board. No deception is involved, and the study involves no more
-        than minimal risk to participants (i.e., the level of risk encountered
-        in daily life).
+        This study involves a web-based survey designed to examine what styles 
+        of review summaries are preferred for different hotels. No deception is 
+        involved, and the study involves no more than minimal risk to participants 
+        (i.e., the level of risk encountered in daily life). 
       </p>
       <p>
-        Participation in the study typically takes 5 minutes and is strictly
-        confidential. Participants begin by answer a few question related to
-        their hotel booking experience and then choose the review summaries that
-        they think are most helpful in making a hotel booking decision and the
-        reasons.
+        Participation in the study typically takes 5 minutes and is strictly 
+        confidential. Participants begin by answer a few question related to 
+        their hotel booking experience and then choose the review summaries that 
+        they think are most helpful in making a hotel booking decision and the reasons. 
       </p>
       <p>
-        All responses are treated as confidential, and in no case will responses
-        from individual participants be identified. Rather, all data will be
-        pooled and published in aggregate form only. Participants should be
-        aware that while the experiment is being run from a "secure" https
-        server of the kind typically used to handle credit card transactions,
-        there is a small possibility that responses could be viewed by
-        unauthorized third parties (e.g., computer hackers).
-      </p>
-      <p>Participants will receive $0.75.</p>
-      <p>
-        Participation is voluntary, refusal to take part in the study involves
-        no penalty or loss of benefits to which participants are otherwise
-        entitled, and participants may withdraw from the study at any time
-        without penalty or loss of benefits to which they are otherwise
-        entitled.
+        All responses are treated as confidential, and in no case will responses 
+        from individual participants be identified. Rather, all data will be 
+        pooled and published in aggregate form only. Participants should be aware 
+        that while the experiment is being run from a "secure" https server of 
+        the kind typically used to handle credit card transactions, there is a 
+        small possibility that responses could be viewed by unauthorized third 
+        parties (e.g., computer hackers). 
       </p>
       <p>
-        If participants have further questions about this study, they may
-        contact the Principal Investigator, Luoying Chen at
-        luoying.chen@utdallas.edu; Participants who want more information about
-        their rights as a participant or who want to report a research related
-        concern may contact The University of Texas at Dallas Office of Human
-        Subjects Protections at (972) 883-4575 or HSP@utdallas.edu.
+        Participants will receive $0.75. Compensation will only be provided upon 
+        full completion of the survey.
       </p>
+      <p>
+        Participation is voluntary, refusal to take part in the study involves no 
+        penalty or loss of benefits to which participants are otherwise entitled, 
+        and participants may withdraw from the study at any time without penalty 
+        or loss of benefits to which they are otherwise entitled. 
+      </p>
+      <p>
+        If participants have further questions about this study, they may contact 
+        the Principal Investigator, Luoying Chen at luoying.chen@utdallas.edu; 
+        Participants who want more information about their rights as a participant 
+        or who want to report a research related concern may contact The University 
+        of Texas at Dallas Office of Human Subjects Protections at (972) 883-4575 or 
+        HSP@utdallas.edu, Indiana University Human Research Protection Program at 
+        (812) 856-4242 or irb@iu.edu, or Indian School of Business The Institutional 
+        Review Board at IRBassist@isb.edu.
+      </p>
+
 
       <div class="question">
         <p>
@@ -246,7 +264,7 @@
             name="booking-frequency"
             value="0"
           />
-          <label for="bookings-0">0 times</label>
+          <label for="bookings-0">0</label>
         </div>
         <div class="radio-option">
           <input
@@ -255,7 +273,7 @@
             name="booking-frequency"
             value="1"
           />
-          <label for="bookings-1">1 time</label>
+          <label for="bookings-1">1</label>
         </div>
         <div class="radio-option">
           <input
@@ -264,7 +282,7 @@
             name="booking-frequency"
             value="2"
           />
-          <label for="bookings-2">2 times</label>
+          <label for="bookings-2">2</label>
         </div>
         <div class="radio-option">
           <input
@@ -273,7 +291,7 @@
             name="booking-frequency"
             value="3"
           />
-          <label for="bookings-3">3 times</label>
+          <label for="bookings-3">3</label>
         </div>
         <div class="radio-option">
           <input
@@ -282,7 +300,7 @@
             name="booking-frequency"
             value="3+"
           />
-          <label for="bookings-3+">More than 3 times</label>
+          <label for="bookings-3+">More than 3</label>
         </div>
       </div>
 
@@ -297,7 +315,7 @@
             name="review-count"
             value="1-5"
           />
-          <label for="reviews-1-5">1-5 reviews</label>
+          <label for="reviews-1-5">1-5</label>
         </div>
         <div class="radio-option">
           <input
@@ -307,7 +325,7 @@
             value="6-10"
           />
           <!-- Corrected ID -->
-          <label for="reviews-6-10">6-10 reviews</label>
+          <label for="reviews-6-10">6-10</label>
         </div>
         <div class="radio-option">
           <input
@@ -316,7 +334,7 @@
             name="review-count"
             value="10+"
           />
-          <label for="reviews-10+">More than 10 reviews</label>
+          <label for="reviews-10+">More than 10</label>
         </div>
         <div class="radio-option">
           <input
@@ -400,11 +418,11 @@
       <h1>Hotel Review Summary Evaluation – Task 1</h1>
 
       <p>
-        <b
-          >Imagine you are deciding whether to book the hotel below. You do not
-          have the actual review text, but will see the summary of the
-          reviews.</b
-        >
+        <b>
+          Imagine you are deciding whether to book the hotel below. You do not
+          have the text of actual individual reviews, but will see the summary 
+          of the reviews.
+        </b>
       </p>
 
       <div class="hotel-info">
@@ -511,7 +529,7 @@
                 value="specific"
               />
               <!-- Corrected ID and value -->
-              <label for="hotel1-reason-specific">Specific</label>
+              <label for="hotel1-reason-specific">To the point</label>
             </li>
             <li>
               <input
@@ -541,7 +559,7 @@
                 value="balanced"
               />
               <label for="hotel1-reason-balanced"
-                >Shows balanced opinions (pros &amp; cons)</label
+                >Shows balanced opinions</label
               >
             </li>
             <li>
@@ -553,7 +571,7 @@
               />
               <!-- Corrected ID and value -->
               <label for="hotel1-reason-honest"
-                >Appears honest/authentic (not like an advertisement)</label
+                >Appears honest/authentic</label
               >
             </li>
             <li>
@@ -564,7 +582,7 @@
                 value="personal"
               />
               <label for="hotel1-reason-personal"
-                >Shows personal/emotional touch</label
+                >Has personal/emotional touch</label
               >
             </li>
           </ul>
@@ -581,7 +599,7 @@
       <p>
         <b
           >Imagine you are deciding whether to book the hotel below. You do not
-          have the actual review text, but will see the summary of the
+          have the text of actual individual reviews, but will see the summary of the
           reviews.</b
         >
       </p>
@@ -689,7 +707,7 @@
                 value="specific"
               />
               <!-- Corrected ID and value -->
-              <label for="hotel2-reason-specific">Specific</label>
+              <label for="hotel2-reason-specific">To the point</label>
             </li>
             <li>
               <input
@@ -719,7 +737,7 @@
                 value="balanced"
               />
               <label for="hotel2-reason-balanced"
-                >Shows balanced opinions (pros &amp; cons)</label
+                >Shows balanced opinions</label
               >
             </li>
             <li>
@@ -731,7 +749,7 @@
               />
               <!-- Corrected ID and value -->
               <label for="hotel2-reason-honest"
-                >Appears honest/authentic (not like an advertisement)</label
+                >Appears honest/authentic</label
               >
             </li>
             <li>
@@ -742,7 +760,7 @@
                 value="personal"
               />
               <label for="hotel2-reason-personal"
-                >Shows personal/emotional touch</label
+                >Has personal/emotional touch</label
               >
             </li>
           </ul>
